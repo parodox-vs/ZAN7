@@ -12,7 +12,9 @@ private val empty = Post(
     author = "",
     likedByMe = false,
     sharedByMe = false,
-    published = ""
+    published = "",
+    likes = 0,
+    shares = 0
 )
 
 
@@ -40,7 +42,7 @@ class PostViewModel : ViewModel() {
         }
         edited.value = edited.value?.copy(content = text)
     }
-    fun likeById(id: Long) = repository.likeById(id)
-    fun shareById(id: Long) = repository.shareById(id)
-    fun removeById(id: Long) = repository.removeById(id)
+    fun likeById(id: Int) = repository.likeById(id)
+    fun shareById(id: Int) = repository.shareById(id)
+    fun removeById(id: Int) = repository.removeById(id)
 }

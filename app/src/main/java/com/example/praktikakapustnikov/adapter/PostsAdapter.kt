@@ -88,10 +88,11 @@ class PostViewHolder(
             textView.text = post.author
             textView2.text = post.published
             textView3.text = post.content
+            textView4.text = post.likes.toString()
+            textView5.text = post.shares.toString()
             imageButton.setImageResource(
                 if (post.likedByMe) R.drawable.like_svgrepo_com__1_ else R.drawable.like_svgrepo_com
             )
-
             imageButton3.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.options_post)
@@ -101,24 +102,34 @@ class PostViewHolder(
                                 onInteractionListener.onRemove(post)
                                 true
                             }
-
                             R.id.edit -> {
                                 onInteractionListener.onEdit(post)
                                 true
                             }
-
                             else -> false
                         }
                     }
                 }.show()
             }
-
             imageButton.setOnClickListener {
                 onInteractionListener.onLike(post)
-
-                imageButton2.setOnClickListener {
-                    onInteractionListener.onShare(post)
-                }
+            }
+            textView4.text = post.likes.toString()
+            when {
+                post.likes in 1000..999999 -> textView4.text = "${post.likes / 1000}K"
+                post.likes < 1000 -> textView4.text = post.likes.toString()
+                else -> textView4.text = String.format("%.1fM", post.likes.toDouble() / 1000000)
+            }
+            imageButton2.setOnClickListener {
+                onInteractionListener.onShare(post)
+            }
+            textView5.text = post.shares.toString()
+            when {
+                post.shares < 1000 -> textView5.text = post.shares.toString()
+                post.shares in 1000..999999 -> textView5.text = "${post.shares / 1000}K"
+                else -> textView5.text = String.format(
+                    "%.1fM", post.shares.toDouble() / 1000000
+                )
             }
         }
     }

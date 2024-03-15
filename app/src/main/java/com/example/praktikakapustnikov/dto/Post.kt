@@ -1,12 +1,12 @@
 package com.example.praktikakapustnikov.dto
 
 data class Post (
-    val id: Long,
+    val id: Int,
     val author: String,
     val content: String,
     val published: String,
-    var likes: Int = 1,
-    val likedByMe: Boolean = false,
-    var shares: Int = 0,
-    val sharedByMe: Boolean = false
+    var likes: Int,
+    val likedByMe: Boolean,
+    var shares: Int,
+    val sharedByMe: Boolean
 )
